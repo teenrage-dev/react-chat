@@ -1,0 +1,36 @@
+.Animation {
+  align-self: center;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+
+  font: 1em sans-serif;
+  margin: 0 auto 0 auto;
+  transform-origin: bottom;
+  text-align: center;
+  animation-name: bounce;
+  animation-timing-function: linear;
+}
+
+.Login__Title {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.Login__Text {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

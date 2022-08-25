@@ -1,0 +1,46 @@
+.SendMessageContainer {
+  bottom: 0;
+  width: 95%;
+  padding: 20px;
+  border: 1px solid rgba(102, 102, 102, 0.3);
+}
+
+.Form {
+  display: flex;
+  width: 100%;
+}
+
+.CustomInput {
+  display: flex;
+  width: 100%;
+  position: relative;
+  border: 1px solid rgba(102, 102, 102, 0.5);
+  border-radius: 20px;
+}
+
+.Input {
+  display: block;
+  width: calc(100% - 35px);
+  border: none;
+  padding: 15px 0 15px 15px;
+  background-color: transparent;
+  outline: none;
+}
+
+.Input::placeholder {
+  color: rgba(102, 102, 102, 0.5);
+}
+
+.Button {
+  border: none;
+  outline: none;
+  padding: 0;
+  background-color: transparent;
+}
+
+.ButtonIco {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  width: 20px;
+}
