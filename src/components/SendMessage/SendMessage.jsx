@@ -23,7 +23,6 @@ export const SendMessage = () => {
     if (value === '') {
       return;
     }
-    console.log(db);
 
     const { uid, displayName, photoURL } = auth.currentUser;
 

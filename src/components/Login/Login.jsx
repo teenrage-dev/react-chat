@@ -1,17 +1,17 @@
 import css from './Login.module.css';
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import GoogleButton from 'react-google-button';
 import { GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
 
-const googleLogin = () => {
-  const provider = new GoogleAuthProvider();
-  signInWithRedirect(auth, provider);
-};
-
 export const Login = () => {
   const [user] = useAuthState(auth);
   console.log(user);
+
+  const googleLogin = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithRedirect(auth, provider);
+  };
 
   return (
     <div className={css.Login}>

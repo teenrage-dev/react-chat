@@ -12,6 +12,7 @@ import { NavLink } from 'react-router-dom';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { SendMessage } from 'components/SendMessage/SendMessage';
 import { Loader } from 'components/Loader/Loader';
+import UsersList from 'components/UsersList/UsersList';
 
 export const ChatsLayout = () => {
   const [filter, setFilter] = useState('');
@@ -21,10 +22,8 @@ export const ChatsLayout = () => {
   useEffect(() => {
     const q = query(collection(db, 'messages'), orderBy('timestamp'));
     const unsubscribe = onSnapshot(q, querySnapshot => {
-      console.log(q, querySnapshot);
       let messages = [];
       querySnapshot.forEach(doc => {
-        console.log(doc);
         messages.push({ ...doc.data(), id: doc.id });
         setMessages(messages);
       });
@@ -37,6 +36,7 @@ export const ChatsLayout = () => {
 
     setFilter(value);
   };
+
   const date = new Date();
 
   if (loading) {
@@ -47,6 +47,7 @@ export const ChatsLayout = () => {
     <>
       {user ? (
         <div>
+          <UsersList />
           <div className={css.ChatsLayout}>
             <div className={css.ChatsHeader}>
               <div className={css.Wrapper}>
@@ -164,7 +165,6 @@ export const ChatsLayout = () => {
                 <div className={css.Messages}>
                   {messages &&
                     messages.map(message => {
-                      console.log(message.uid, user.uid);
                       return (
                         <div
                           key={message.id}
