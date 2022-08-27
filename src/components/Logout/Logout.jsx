@@ -1,7 +1,6 @@
 import css from './Logout.module.css';
 
 import { auth } from '../../firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 
 export const Logout = () => {
