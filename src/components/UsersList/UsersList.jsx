@@ -1,34 +1,30 @@
-import { addDoc, collection, onSnapshot, query } from 'firebase/firestore';
-import { useEffect, useMemo, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import css from './UsersList.module.css';
+
+import { Logout } from 'components/Logout/Logout';
+
 import { auth, db } from '../../firebase';
+import { collection, onSnapshot, query } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { NavLink } from 'react-router-dom';
+
+import { DebounceInput } from 'react-debounce-input';
+import { AiOutlineSearch } from 'react-icons/ai';
+
+import { useUserData } from 'hooks/useUserData';
 
 export default function UsersList() {
   const [user] = useAuthState(auth);
+
   const [usersList, setUsersList] = useState([]);
+  const [filter, setFilter] = useState('');
+  // const { username } = useUserData();
 
-  const currentUser = auth.currentUser;
+  useUserData();
+  // console.log(user);
+  console.log(usersList);
 
-  //Filter UsersList
-  let filteredUsersList =
-    usersList.length !== 0
-      ? usersList
-          .map(({ user }) => {
-            // console.log(user);
-            if (
-              user.uid.toLowerCase().includes(currentUser.uid.toLowerCase())
-            ) {
-              return true;
-            }
-            return true;
-          })
-          .includes(true)
-      : false;
-  console.log(`Filtered Users LIST :${filteredUsersList}`);
-  if (usersList.length === 0) {
-    let filteredUsersList = true;
-    console.log(`Filtered Users LIST :${filteredUsersList}`);
-  }
+  const date = new Date();
 
   useEffect(() => {
     const q = query(collection(db, 'users'));
@@ -43,29 +39,87 @@ export default function UsersList() {
     return () => unsubscribe;
   }, []);
 
-  useMemo(() => {
-    const { uid, displayName, photoURL } = auth.currentUser;
-    const addUsersList = async () => {
-      await addDoc(collection(db, 'users'), {
-        user: {
-          uid: uid,
-          photoURL: photoURL,
-          displayName: displayName,
-        },
-      });
-    };
-    if (filteredUsersList === true) {
-      console.log(`IF DONE`, Date.now());
-      addUsersList();
+  const handleChange = e => {
+    const value = e.target.value.toLocaleLowerCase();
+
+    setFilter(value);
+  };
+
+  const getFilteredUsers = () => {
+    if (!filter) {
+      return usersList;
     }
-    // addUsersList();
-  }, [filteredUsersList]);
-  console.log(usersList);
+    return usersList.filter(user =>
+      user.username.toLocaleLowerCase().includes(filter)
+    );
+  };
+
+  const renderUsersList = getFilteredUsers();
 
   return (
-    <div>
-      {/* <h2>The designer are...</h2> */}
-      <ul></ul>
+    <div className={css.ChatsHeader}>
+      <div className={css.Wrapper}>
+        <div className={css.UserImgContainer}>
+          <img
+            src={user.photoURL}
+            alt="User"
+            width="50"
+            className={css.UserImg}
+          />
+          <Logout />
+        </div>
+
+        <div className={css.InputFilterContainer}>
+          <AiOutlineSearch
+            size="2em"
+            color="rgb(102, 102, 102)"
+            className={css.SearchIcon}
+          />
+          <DebounceInput
+            minLength={1}
+            debounceTimeout={500}
+            autoFocus
+            type="text"
+            value={filter}
+            placeholder="Search or start new chat"
+            onChange={handleChange}
+            className={css.InputFilter}
+          />
+        </div>
+      </div>
+
+      <div className={css.ChatsUsers}>
+        <h2 className={css.Title}>Chats</h2>
+        <ul className={css.UsersList}>
+          {usersList.length > 0
+            ? renderUsersList.map(({ uid, photoURL, name }) => {
+                return (
+                  <li key={uid} className={css.UsersItem}>
+                    <NavLink to={`/users/:${uid}`} className={css.UsersLink}>
+                      <div className={css.UsersImgContainer}>
+                        <img
+                          src={photoURL}
+                          alt={name}
+                          width="50"
+                          className={css.UsersImg}
+                        />
+                      </div>
+                      <div className={css.UsersName}>
+                        <h3 className={css.UsersTitle}>{name}</h3>
+                        <p className={css.UsersMessage}>
+                          Alice freeman is a chat.
+                        </p>
+                      </div>
+                      <div className={css.UsersDate}>
+                        {date.toLocaleTimeString()}
+                      </div>
+                    </NavLink>
+                  </li>
+                );
+              })
+            : null}
+        </ul>
+      </div>
     </div>
   );
 }

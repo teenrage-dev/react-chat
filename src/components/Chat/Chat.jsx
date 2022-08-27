@@ -32,7 +32,6 @@ export const Chat = () => {
     <>
       <main>
         <div className={css.Chat}>
-          <h2>Chat</h2>
           <ChatsLayout />
         </div>
       </main>

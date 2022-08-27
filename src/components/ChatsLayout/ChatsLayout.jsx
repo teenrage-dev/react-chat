@@ -1,13 +1,10 @@
 import css from './ChatsLayout.module.css';
 
-import { AiOutlineSearch } from 'react-icons/ai';
-
 import { auth, db } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { DebounceInput } from 'react-debounce-input';
+
 import { useEffect, useState } from 'react';
 
-import { Logout } from 'components/Logout/Logout';
 import { NavLink } from 'react-router-dom';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { SendMessage } from 'components/SendMessage/SendMessage';
@@ -15,7 +12,6 @@ import { Loader } from 'components/Loader/Loader';
 import UsersList from 'components/UsersList/UsersList';
 
 export const ChatsLayout = () => {
-  const [filter, setFilter] = useState('');
   const [user, loading] = useAuthState(auth);
   const [messages, setMessages] = useState([]);
 
@@ -31,14 +27,6 @@ export const ChatsLayout = () => {
     return () => unsubscribe;
   }, []);
 
-  const handleChange = e => {
-    const value = e.target.value.toLocaleLowerCase();
-
-    setFilter(value);
-  };
-
-  const date = new Date();
-
   if (loading) {
     return <Loader />;
   }
@@ -47,9 +35,9 @@ export const ChatsLayout = () => {
     <>
       {user ? (
         <div>
-          <UsersList />
           <div className={css.ChatsLayout}>
-            <div className={css.ChatsHeader}>
+            <UsersList />
+            {/* <div className={css.ChatsHeader}>
               <div className={css.Wrapper}>
                 <div className={css.UserImgContainer}>
                   <img
@@ -80,76 +68,9 @@ export const ChatsLayout = () => {
                 </div>
               </div>
               <hr className={css.Line} />
-
-              <div className={css.ChatsUsers}>
-                <h2 className={css.Title}>Chats</h2>
-                <ul className={css.UsersList}>
-                  <li className={css.UsersItem}>
-                    <NavLink to="/users/:userId">
-                      <div className={css.UsersImgContainer}>
-                        <img
-                          src="https://image.shutterstock.com/image-vector/user-icon-trendy-flat-style-600w-418179865.jpg"
-                          alt="qwe"
-                          width="50"
-                        />
-                      </div>
-                      <div className={css.UsersName}>
-                        <h3 className={css.UsersTitle}>AliceFreeman</h3>
-                        <p className={css.UsersMessage}>
-                          Alice freeman is a chat.
-                        </p>
-                      </div>
-                      <div className={css.UsersDate}>
-                        {' '}
-                        {date.toLocaleTimeString()}
-                      </div>
-                    </NavLink>
-                  </li>
-                  <li className={css.UsersItem}>
-                    <NavLink to="/users/:userId">
-                      <div className={css.UsersImgContainer}>
-                        <img
-                          src="https://image.shutterstock.com/image-vector/user-icon-trendy-flat-style-600w-418179865.jpg"
-                          alt="wqe"
-                          width="50"
-                        />
-                      </div>
-                      <div className={css.UsersName}>
-                        <h3 className={css.UsersTitle}>AliceFreeman</h3>
-                        <p className={css.UsersMessage}>
-                          Alice freeman is a chat.
-                        </p>
-                      </div>
-                      <div className={css.UsersDate}>
-                        {' '}
-                        {date.toLocaleTimeString()}
-                      </div>
-                    </NavLink>
-                  </li>
-                  <li className={css.UsersItem}>
-                    <NavLink to="/users/:userId">
-                      <div className={css.UsersImgContainer}>
-                        <img
-                          src="https://image.shutterstock.com/image-vector/user-icon-trendy-flat-style-600w-418179865.jpg"
-                          alt="ewq"
-                          width="50"
-                        />
-                      </div>
-                      <div className={css.UsersName}>
-                        <h3 className={css.UsersTitle}>AliceFreeman</h3>
-                        <p className={css.UsersMessage}>
-                          Alice freeman is a chat.
-                        </p>
-                      </div>
-                      <div className={css.UsersDate}>
-                        {date.toLocaleTimeString()}
-                      </div>
-                    </NavLink>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className={css.MessagesContainer}>
+              <UsersList />
+            </div> */}
+            {/* <div className={css.MessagesContainer}>
               <div className={css.ActiveUserCntainer}>
                 <div className={css.ActiveUser}>
                   <div className={css.ActiveUserInfo}>
@@ -165,6 +86,7 @@ export const ChatsLayout = () => {
                 <div className={css.Messages}>
                   {messages &&
                     messages.map(message => {
+                      console.log(message);
                       return (
                         <div
                           key={message.id}
@@ -188,7 +110,7 @@ export const ChatsLayout = () => {
                 </div>
               </div>
               <SendMessage />
-            </div>
+            </div> */}
           </div>
         </div>
       ) : (

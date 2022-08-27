@@ -5,11 +5,16 @@ import { auth } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 
 import { Login } from 'components/Login/Login';
+import { Loader } from 'components/Loader/Loader';
 
 export const AppBar = () => {
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   const navigate = useNavigate();
+
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div className={css.AppBar}>
       <div className={css.LoginContainer}>
