@@ -5,15 +5,15 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { useEffect, useState } from 'react';
 
-import { NavLink } from 'react-router-dom';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
-import { SendMessage } from 'components/SendMessage/SendMessage';
+
 import { Loader } from 'components/Loader/Loader';
 import UsersList from 'components/UsersList/UsersList';
 
 export const ChatsLayout = () => {
   const [user, loading] = useAuthState(auth);
   const [messages, setMessages] = useState([]);
+  console.log(messages);
 
   useEffect(() => {
     const q = query(collection(db, 'messages'), orderBy('timestamp'));
