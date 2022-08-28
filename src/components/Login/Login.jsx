@@ -6,7 +6,7 @@ import { GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
 
 export const Login = () => {
   const [user] = useAuthState(auth);
-  console.log(user);
+  console.log(user, auth.current);
 
   const googleLogin = () => {
     const provider = new GoogleAuthProvider();

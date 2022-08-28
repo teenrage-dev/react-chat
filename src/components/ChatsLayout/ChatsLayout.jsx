@@ -5,15 +5,42 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { useEffect, useState } from 'react';
 
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  updateDoc,
+} from 'firebase/firestore';
 
 import { Loader } from 'components/Loader/Loader';
 import UsersList from 'components/UsersList/UsersList';
+import { useNavigate } from 'react-router-dom';
 
 export const ChatsLayout = () => {
   const [user, loading] = useAuthState(auth);
   const [messages, setMessages] = useState([]);
-  console.log(messages);
+
+  const navigate = useNavigate();
+
+  // console.log(messages);
+
+  useEffect(() => {
+    if (user) {
+      const updateIsOnline = async () => {
+        try {
+          await updateDoc(doc(db, 'users', auth.currentUser.uid), {
+            isOnline: true,
+          });
+          console.log(`UserOnline`);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      updateIsOnline();
+    }
+  }, [user]);
 
   useEffect(() => {
     const q = query(collection(db, 'messages'), orderBy('timestamp'));
@@ -114,7 +141,9 @@ export const ChatsLayout = () => {
           </div>
         </div>
       ) : (
-        <div>Sorry User Not Found</div>
+        navigate('/', {
+          replace: true,
+        })
       )}
     </>
   );

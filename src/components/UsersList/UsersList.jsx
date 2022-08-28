@@ -21,9 +21,8 @@ export default function UsersList() {
   // const { username } = useUserData();
 
   useUserData();
-  // console.log(user);
-  console.log(usersList);
-
+  // console.log(user, auth.currentUser);
+  // console.log(usersList);
   const date = new Date();
 
   useEffect(() => {
@@ -32,7 +31,12 @@ export default function UsersList() {
       let usersList = [];
       querySnapshot.forEach(doc => {
         usersList.push({ ...doc.data() });
-        setUsersList(usersList);
+        setUsersList(
+          usersList.filter(user => {
+            console.log(user.uid, auth.currentUser.uid);
+            return user.uid !== auth.currentUser.uid;
+          })
+        );
       });
     });
 
@@ -53,6 +57,8 @@ export default function UsersList() {
       user.username.toLocaleLowerCase().includes(filter)
     );
   };
+
+  console.log(usersList);
 
   const renderUsersList = getFilteredUsers();
 
@@ -92,7 +98,8 @@ export default function UsersList() {
         <h2 className={css.Title}>Chats</h2>
         <ul className={css.UsersList}>
           {usersList.length > 0
-            ? renderUsersList.map(({ uid, photoURL, name }) => {
+            ? renderUsersList.map(({ uid, photoURL, name, isOnline }) => {
+                console.log(isOnline);
                 return (
                   <li key={uid} className={css.UsersItem}>
                     <NavLink to={`/users/:${uid}`} className={css.UsersLink}>
@@ -103,6 +110,11 @@ export default function UsersList() {
                           width="50"
                           className={css.UsersImg}
                         />
+                        <div
+                          className={`${css.Status} ${
+                            isOnline ? `${css.online}` : `${css.offline}`
+                          }`}
+                        ></div>
                       </div>
                       <div className={css.UsersName}>
                         <h3 className={css.UsersTitle}>{name}</h3>

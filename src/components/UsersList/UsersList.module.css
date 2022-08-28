@@ -107,9 +107,25 @@
 
 .UsersImgContainer {
   margin-right: 10px;
+  position: relative;
 }
 .UsersImg {
   border-radius: 15px;
+}
+
+.Status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.online {
+  background-color: #34eb52;
+}
+.offline {
+  background-color: #eb4034;
 }
 
 .UsersDate {

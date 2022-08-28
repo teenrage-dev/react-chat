@@ -1,5 +1,5 @@
-import { auth, firestore } from '../firebase';
-import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
+import { auth, db } from '../firebase';
+import { doc, getDoc, setDoc, onSnapshot, Timestamp } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
@@ -12,7 +12,7 @@ export function useUserData() {
     let unsubscribe;
 
     if (user) {
-      const documentRef = doc(firestore, 'users', user.uid);
+      const documentRef = doc(db, 'users', user.uid);
       const getUserData = async () => {
         const docSnap = await getDoc(documentRef);
         if (docSnap.exists()) {
@@ -20,12 +20,14 @@ export function useUserData() {
             setUsername(doc.data().username);
           });
         } else {
-          await setDoc(doc(firestore, 'users', user.uid), {
+          await setDoc(doc(db, 'users', user.uid), {
             name: user.displayName,
             email: user.email,
             username: user.displayName,
             photoURL: user.photoURL,
             uid: user.uid,
+            createdAt: Timestamp.fromDate(new Date()),
+            isOnline: true,
           });
           setUsername(docSnap.data().username);
         }

@@ -1,12 +1,17 @@
 import css from './Logout.module.css';
 
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
+import { doc, updateDoc } from 'firebase/firestore';
 
 export const Logout = () => {
   const navigate = useNavigate();
 
-  const signOut = () => {
+  const signOut = async () => {
+    await updateDoc(doc(db, 'users', auth.currentUser.uid), {
+      isOnline: false,
+    });
+
     auth
       .signOut()
       .then(() => {
