@@ -91,6 +91,27 @@ export default function UsersList() {
       createdAt: Timestamp.fromDate(new Date()),
     });
 
+    const getRandomMsg = async () => {
+      try {
+        const msg = await fetch('https://api.chucknorris.io/jokes/random');
+        const res = await msg.json();
+        const data = await res.value;
+
+        await addDoc(collection(db, 'messages', id, 'chat'), {
+          text: data,
+          from: user2,
+          to: user1,
+          createdAt: Timestamp.fromDate(new Date()),
+        });
+      } catch (err) {
+        toast.error(err.message);
+      }
+    };
+
+    setTimeout(() => {
+      getRandomMsg();
+    }, 10000);
+
     await setDoc(doc(db, 'lastMessage', id), {
       text,
       from: user1,

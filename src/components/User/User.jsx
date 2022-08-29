@@ -18,11 +18,11 @@ export const User = ({ user, selectUser, user1, chat }) => {
     return () => unsubscribe();
   }, [user1, user2]);
 
-  const handleSelectLastMsg = () => {
-    console.log(data);
-    if (data) {
-    }
-  };
+  // const handleSelectLastMsg = () => {
+  //   console.log(data);
+  //   if (data) {
+  //   }
+  // };
 
   return (
     <>
