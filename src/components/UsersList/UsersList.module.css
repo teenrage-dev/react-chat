@@ -46,6 +46,7 @@
   display: block;
   width: calc(100% - 35px);
   height: 100%;
+
   border: none;
   padding: 10px 0 10px 10px;
   border-radius: 20px;
@@ -53,6 +54,10 @@
 }
 .InputFilter::placeholder {
   color: rgb(102, 102, 102);
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ChatsUsers {
@@ -97,53 +102,8 @@
   position: relative;
 }
 
-.ActiveUser {
-  padding-left: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(102, 102, 102, 0.3);
-}
-
 .ActiveUserCntainer {
   position: relative;
   height: 100%;
   max-height: fit-content;
-}
-
-.ActiveUserInfo {
-  display: flex;
-  align-items: center;
-}
-
-.ActiveUserImgBox {
-  position: relative;
-  margin-right: 10px;
-}
-.ActiveUserImg {
-  border-radius: 50%;
-}
-
-.Status {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
-.online {
-  background-color: #34eb52;
-}
-.offline {
-  background-color: #eb4034;
-}
-
-.UsersDate {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.ActiveUserTitle {
-  font-size: 25px;
-  font-weight: 400;
 }
