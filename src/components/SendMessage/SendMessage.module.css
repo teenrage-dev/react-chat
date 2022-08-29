@@ -50,3 +50,13 @@
   right: 20px;
   width: 20px;
 }
+
+@media screen and (max-width: 360px) {
+  .SendMessageContainer {
+    padding: 15px;
+  }
+
+  .Form {
+    width: calc(100% - 10px);
+  }
+}

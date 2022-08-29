@@ -104,4 +104,12 @@
   .UsersDate {
     display: none;
   }
+
+  .UsersLink {
+    justify-content: center;
+  }
+
+  .Line {
+    display: none;
+  }
 }

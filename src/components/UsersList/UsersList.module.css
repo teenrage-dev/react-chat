@@ -129,4 +129,22 @@
     padding-left: 15px;
     padding-right: 15px;
   }
+
+  .Title {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .ChatsHeader {
+    width: 25%;
+  }
+
+  .InputFilterContainer {
+    display: none;
+  }
+
+  .MessagesContainer {
+    width: 75%;
+  }
 }

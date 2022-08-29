@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react';
 import Moment from 'react-moment';
 
 export const User = ({ user, selectUser, user1, chat }) => {
-  const user2 = user?.uid;
   const [data, setData] = useState('');
+  const user2 = user?.uid;
 
   useEffect(() => {
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
@@ -17,6 +17,12 @@ export const User = ({ user, selectUser, user1, chat }) => {
     });
     return () => unsubscribe();
   }, [user1, user2]);
+
+  const handleSelectLastMsg = () => {
+    console.log(data);
+    if (data) {
+    }
+  };
 
   return (
     <>
