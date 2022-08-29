@@ -198,11 +198,17 @@ export default function UsersList() {
                     width="50"
                     className={css.ActiveUserImg}
                   />
-                  <div
-                    className={`${css.Status} ${
-                      user.isOnline ? `${css.online}` : `${css.offline}`
-                    }`}
-                  ></div>
+                  {renderUsersList > 0
+                    ? renderUsersList.map(user => {
+                        return (
+                          <div
+                            className={`${css.Status} ${
+                              user.isOnline ? `${css.online}` : `${css.offline}`
+                            }`}
+                          ></div>
+                        );
+                      })
+                    : null}
                 </div>
 
                 <h2 className={css.ActiveUserTitle}>{chat.name}</h2>

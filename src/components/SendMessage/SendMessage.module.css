@@ -1,5 +1,5 @@
 .SendMessageContainer {
-  width: 95%;
+  width: calc(100% - 30px);
   padding: 20px;
   border: 1px solid rgba(102, 102, 102, 0.3);
   position: absolute;
@@ -17,7 +17,7 @@
 .CustomInput {
   display: flex;
   align-items: center;
-  width: 100%;
+  width: calc(100% - 35px);
   position: relative;
   border: 1px solid rgba(102, 102, 102, 0.5);
   border-radius: 20px;
@@ -25,9 +25,9 @@
 
 .Input {
   display: block;
-  width: calc(100% - 35px);
+  /* width: calc(100% - 50px); */
   border: none;
-  padding: 15px 0 15px 25px;
+  padding: 15px 55px 15px 15px;
   background-color: transparent;
   outline: none;
 }
@@ -37,6 +37,7 @@
 }
 
 .Button {
+  cursor: pointer;
   border: none;
   outline: none;
   padding: 0;

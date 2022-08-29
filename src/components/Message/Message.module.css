@@ -18,29 +18,31 @@
 .MessageWraper {
   display: flex;
   flex-direction: column;
+  max-width: 50%;
 }
 
 .UserPhoto {
   border-radius: 50%;
+  margin-right: 10px;
 }
 
 .MessageText {
-  font-size: 16px;
+  font-size: 14px;
   padding: 8px;
   border-radius: 10px;
   text-align: left;
   display: inline-block;
-  max-width: 50%;
 }
 
 .Me {
-  color: #3f3c3c;
-  background-color: #fff;
+  color: #626262;
+  background-color: #e0e0e0;
+  font-size: 16px;
 }
 
 .Friend {
   color: #fff;
-  background-color: #3f3c3c;
+  background-color: #3c4252;
 }
 
 .Date {
@@ -49,4 +51,23 @@
   opacity: 0.8;
   color: #000;
   font-size: 12px;
+}
+
+@media screen and (max-width: 767px) {
+  .MessageWraper {
+    max-width: 75%;
+  }
+  .UserPhoto {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .MessageWraper {
+    max-width: 100%;
+  }
+}
+.Own {
+  margin-left: 10px;
 }
