@@ -1,0 +1,52 @@
+.Message {
+  display: flex;
+  position: relative;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.Own {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+
+.OtherUser {
+  margin-left: 10px;
+}
+
+.MessageWraper {
+  display: flex;
+  flex-direction: column;
+}
+
+.UserPhoto {
+  border-radius: 50%;
+}
+
+.MessageText {
+  font-size: 16px;
+  padding: 8px;
+  border-radius: 10px;
+  text-align: left;
+  display: inline-block;
+  max-width: 50%;
+}
+
+.Me {
+  color: #3f3c3c;
+  background-color: #fff;
+}
+
+.Friend {
+  color: #fff;
+  background-color: #3f3c3c;
+}
+
+.Date {
+  display: inline-block;
+  margin-top: 5px;
+  opacity: 0.8;
+  color: #000;
+  font-size: 12px;
+}

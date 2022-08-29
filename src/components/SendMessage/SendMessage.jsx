@@ -1,51 +1,19 @@
 import css from './SendMessage.module.css';
 
 import { MdOutlineSend } from 'react-icons/md';
-import { useState } from 'react';
 
-import { auth, db } from '../../firebase';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-
-export const SendMessage = () => {
-  const [value, setValue] = useState('');
-
-  const handleChange = e => {
-    setValue(e.target.value);
-
-    if (e.target.value === '') {
-      setValue('');
-    }
-  };
-
-  const handleSend = async e => {
-    e.preventDefault();
-    setValue('');
-    if (value === '') {
-      return;
-    }
-
-    const { uid, displayName, photoURL } = auth.currentUser;
-
-    await addDoc(collection(db, 'messages'), {
-      text: value,
-      name: displayName,
-      photoURL,
-      uid,
-      timestamp: serverTimestamp(),
-    });
-  };
-
+export const SendMessage = ({ handleSubmit, text, setText }) => {
   return (
     <div className={css.SendMessageContainer}>
-      <form onSubmit={handleSend} className={css.Form}>
+      <form onSubmit={handleSubmit} className={css.Form}>
         <div className={css.CustomInput}>
           <input
             autoFocus
             type="text"
             className={css.Input}
-            value={value}
+            value={text}
             placeholder="Type your message"
-            onChange={handleChange}
+            onChange={e => setText(e.target.value)}
           />
           <button className={css.Button} type="submit">
             <MdOutlineSend className={css.ButtonIco} size="2em" />

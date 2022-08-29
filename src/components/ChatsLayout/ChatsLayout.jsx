@@ -3,16 +3,9 @@ import css from './ChatsLayout.module.css';
 import { auth, db } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import {
-  collection,
-  doc,
-  onSnapshot,
-  orderBy,
-  query,
-  updateDoc,
-} from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 
 import { Loader } from 'components/Loader/Loader';
 import UsersList from 'components/UsersList/UsersList';
@@ -20,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const ChatsLayout = () => {
   const [user, loading] = useAuthState(auth);
-  const [messages, setMessages] = useState([]);
+  // const [messages, setMessages] = useState([]);
 
   const navigate = useNavigate();
 
@@ -42,17 +35,17 @@ export const ChatsLayout = () => {
     }
   }, [user]);
 
-  useEffect(() => {
-    const q = query(collection(db, 'messages'), orderBy('timestamp'));
-    const unsubscribe = onSnapshot(q, querySnapshot => {
-      let messages = [];
-      querySnapshot.forEach(doc => {
-        messages.push({ ...doc.data(), id: doc.id });
-        setMessages(messages);
-      });
-    });
-    return () => unsubscribe;
-  }, []);
+  // useEffect(() => {
+  //   const q = query(collection(db, 'messages'), orderBy('timestamp'));
+  //   const unsubscribe = onSnapshot(q, querySnapshot => {
+  //     let messages = [];
+  //     querySnapshot.forEach(doc => {
+  //       messages.push({ ...doc.data(), id: doc.id });
+  //       setMessages(messages);
+  //     });
+  //   });
+  //   return () => unsubscribe;
+  // }, []);
 
   if (loading) {
     return <Loader />;
@@ -61,43 +54,10 @@ export const ChatsLayout = () => {
   return (
     <>
       {user ? (
-        <div>
-          <div className={css.ChatsLayout}>
-            <UsersList />
-            {/* <div className={css.ChatsHeader}>
-              <div className={css.Wrapper}>
-                <div className={css.UserImgContainer}>
-                  <img
-                    src={user.photoURL}
-                    alt="User"
-                    width="50"
-                    className={css.UserImg}
-                  />
-                  <Logout />
-                </div>
+        <div className={css.ChatsLayout}>
+          <UsersList />
 
-                <div className={css.InputFilterContainer}>
-                  <AiOutlineSearch
-                    size="2em"
-                    color="rgb(102, 102, 102)"
-                    className={css.SearchIcon}
-                  />
-                  <DebounceInput
-                    minLength={1}
-                    debounceTimeout={500}
-                    autoFocus
-                    type="text"
-                    value={filter}
-                    placeholder="Search or start new chat"
-                    onChange={handleChange}
-                    className={css.InputFilter}
-                  />
-                </div>
-              </div>
-              <hr className={css.Line} />
-              <UsersList />
-            </div> */}
-            {/* <div className={css.MessagesContainer}>
+          {/* <div className={css.MessagesContainer}>
               <div className={css.ActiveUserCntainer}>
                 <div className={css.ActiveUser}>
                   <div className={css.ActiveUserInfo}>
@@ -138,7 +98,6 @@ export const ChatsLayout = () => {
               </div>
               <SendMessage />
             </div> */}
-          </div>
         </div>
       ) : (
         navigate('/', {
