@@ -82,6 +82,12 @@
   text-overflow: ellipsis;
 }
 
+@media screen and (max-width: 1200px) {
+  .UsersTitle {
+    font-size: 16px;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .UsersImg {
     width: 35px;
@@ -89,7 +95,9 @@
   }
   .UsersTitle {
     font-size: 16px;
-    font-weight: 500;
+  }
+  .UsersDate {
+    display: none;
   }
 }
 @media screen and (max-width: 576px) {
@@ -99,9 +107,6 @@
   }
 
   .UsersName {
-    display: none;
-  }
-  .UsersDate {
     display: none;
   }
 
