@@ -42,3 +42,14 @@
   font-size: 25px;
   font-weight: 400;
 }
+
+@media screen and (max-width: 576px) {
+  .ActiveUserImg {
+    width: 35px;
+    height: 35px;
+  }
+
+  .ActiveUserTitle {
+    font-size: 18px;
+  }
+}

@@ -97,4 +97,11 @@
     font-size: 14px;
     font-weight: 400;
   }
+
+  .UsersName {
+    display: none;
+  }
+  .UsersDate {
+    display: none;
+  }
 }
