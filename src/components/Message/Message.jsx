@@ -12,7 +12,6 @@ export const Message = ({ message, user1, user }) => {
     });
   }, [message]);
 
-  console.log(user1);
   return (
     <div
       className={`${css.Message} ${

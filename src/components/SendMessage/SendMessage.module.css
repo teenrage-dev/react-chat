@@ -11,13 +11,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: calc(100% - 35px);
 }
 
 .CustomInput {
   display: flex;
   align-items: center;
-  width: calc(100% - 35px);
+  width: 100%;
   position: relative;
   border: 1px solid rgba(102, 102, 102, 0.5);
   border-radius: 20px;
@@ -25,11 +25,11 @@
 
 .Input {
   display: block;
-  /* width: calc(100% - 50px); */
   border: none;
-  padding: 15px 55px 15px 15px;
+  padding: 15px 55px 15px 25px;
   background-color: transparent;
   outline: none;
+  width: calc(100% - 85px);
 }
 
 .Input::placeholder {

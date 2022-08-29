@@ -25,6 +25,7 @@ import { useUserData } from 'hooks/useUserData';
 import { User } from 'components/User/User';
 import { SendMessage } from 'components/SendMessage/SendMessage';
 import { Message } from 'components/Message/Message';
+import { ActiveUser } from 'components/ActiveUser/ActiveUser';
 
 export default function UsersList() {
   const [user] = useAuthState(auth);
@@ -46,7 +47,6 @@ export default function UsersList() {
         usersList.push({ ...doc.data() });
         setUsersList(
           usersList.filter(user => {
-            // console.log(user.uid, auth.currentUser.uid);
             return user.uid !== auth.currentUser.uid;
           })
         );
@@ -126,11 +126,7 @@ export default function UsersList() {
       });
       setMessages(messages);
     });
-
-    console.log(user);
   };
-  // console.log(usersList);
-  console.log(messages);
 
   const renderUsersList = getFilteredUsers();
 
@@ -189,7 +185,8 @@ export default function UsersList() {
       <div className={css.MessagesContainer}>
         {chat ? (
           <div className={css.ActiveUserCntainer}>
-            <div className={css.ActiveUser}>
+            <ActiveUser chat={chat} />
+            {/* <div className={css.ActiveUser}>
               <div className={css.ActiveUserInfo}>
                 <div className={css.ActiveUserImgBox}>
                   <img
@@ -198,22 +195,16 @@ export default function UsersList() {
                     width="50"
                     className={css.ActiveUserImg}
                   />
-                  {renderUsersList > 0
-                    ? renderUsersList.map(user => {
-                        return (
-                          <div
-                            className={`${css.Status} ${
-                              user.isOnline ? `${css.online}` : `${css.offline}`
-                            }`}
-                          ></div>
-                        );
-                      })
-                    : null}
+                  <div
+                    className={`${css.Status} ${
+                      chat.isOnline ? `${css.online}` : `${css.offline}`
+                    }`}
+                  ></div>
                 </div>
 
                 <h2 className={css.ActiveUserTitle}>{chat.name}</h2>
               </div>
-            </div>
+            </div> */}
             <div className={css.Messages}>
               {messages &&
                 messages.map((message, index) => (
