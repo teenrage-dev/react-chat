@@ -18,14 +18,12 @@ import {
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { DebounceInput } from 'react-debounce-input';
-import { AiOutlineSearch } from 'react-icons/ai';
-
 import { useUserData } from 'hooks/useUserData';
 import { User } from 'components/User/User';
 import { SendMessage } from 'components/SendMessage/SendMessage';
 import { Message } from 'components/Message/Message';
 import { ActiveUser } from 'components/ActiveUser/ActiveUser';
+import { Filter } from 'components/Filter/Filter';
 
 export default function UsersList() {
   const [user] = useAuthState(auth);
@@ -165,70 +163,62 @@ export default function UsersList() {
             <Logout />
           </div>
 
-          <div className={css.InputFilterContainer}>
-            <AiOutlineSearch
-              size="2em"
-              color="rgb(102, 102, 102)"
-              className={css.SearchIcon}
-            />
-            <DebounceInput
-              minLength={1}
-              debounceTimeout={500}
-              autoFocus
-              type="text"
-              value={filter}
-              placeholder="Search or start new chat"
-              onChange={handleChange}
-              className={css.InputFilter}
-            />
-          </div>
+          <Filter
+            filter={filter}
+            handleChange={handleChange}
+            usersList={usersList}
+          />
         </div>
 
         <div className={css.ChatsUsers}>
           <h2 className={css.Title}>Chats</h2>
           <ul className={css.UsersList}>
-            {usersList.length > 0
-              ? renderUsersList.map(user => {
-                  return (
-                    <User
-                      key={user.uid}
-                      user={user}
-                      user1={user1}
-                      selectUser={selectUser}
-                      chat={chat}
-                    />
-                  );
-                })
-              : null}
+            {usersList.length > 0 ? (
+              renderUsersList.map(user => {
+                return (
+                  <User
+                    key={user.uid}
+                    user={user}
+                    user1={user1}
+                    selectUser={selectUser}
+                    chat={chat}
+                  />
+                );
+              })
+            ) : (
+              <h3>No user in the chat </h3>
+            )}
           </ul>
         </div>
       </div>
-      <div className={css.MessagesContainer}>
-        {chat ? (
-          <div className={css.ActiveUserCntainer}>
-            <ActiveUser chat={chat} />
-            <div className={css.Messages}>
-              {messages &&
-                messages.map((message, index) => (
-                  <Message
-                    key={index}
-                    message={message}
-                    user={chat}
-                    user1={user1}
-                  />
-                ))}
-            </div>
+      {usersList.length > 0 ? (
+        <div className={css.MessagesContainer}>
+          {chat ? (
+            <div className={css.ActiveUserCntainer}>
+              <ActiveUser chat={chat} />
+              <div className={css.Messages}>
+                {messages &&
+                  messages.map((message, index) => (
+                    <Message
+                      key={index}
+                      message={message}
+                      user={chat}
+                      user1={user1}
+                    />
+                  ))}
+              </div>
 
-            <SendMessage
-              handleSubmit={handleSubmit}
-              text={text}
-              setText={setText}
-            />
-          </div>
-        ) : (
-          <h3>Select a user to start chatting</h3>
-        )}
-      </div>
+              <SendMessage
+                handleSubmit={handleSubmit}
+                text={text}
+                setText={setText}
+              />
+            </div>
+          ) : (
+            <h3>Select a user to start chatting</h3>
+          )}
+        </div>
+      ) : null}
       <Toaster position="top-right" />
     </>
   );
