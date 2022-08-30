@@ -5,6 +5,7 @@
   align-items: center;
   background-color: #4285f4;
   height: 100vh;
+  position: relative;
 }
 
 .LoginContainer {
@@ -17,4 +18,11 @@
   width: 450px;
   height: 300px;
   border-radius: 8px;
+}
+
+@media screen and (max-width: 576px) {
+  .LoginContainer {
+    width: 300px;
+    height: 280px;
+  }
 }

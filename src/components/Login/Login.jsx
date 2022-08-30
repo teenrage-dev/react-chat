@@ -14,7 +14,12 @@ export const Login = () => {
     <div className={css.Login}>
       <h1 className={css.Login__Title}>Let's Go To Chat</h1>
       <p className={`${css.Animation} ${css.Login__Text}`}>&#128071;</p>
-      <GoogleButton onClick={googleLogin} />
+      <GoogleButton
+        onClick={googleLogin}
+        style={{
+          width: '50%',
+        }}
+      />
     </div>
   );
 };

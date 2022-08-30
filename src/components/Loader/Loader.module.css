@@ -95,3 +95,10 @@
     transform: rotate(360deg);
   }
 }
+
+@media screen and (max-width: 576px) {
+  .lds_roller {
+    width: 20px;
+    height: 20px;
+  }
+}
